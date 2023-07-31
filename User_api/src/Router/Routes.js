@@ -1,21 +1,25 @@
-const express = require('express');
+const express = require("express");
 
 const router = express.Router();
 
+const authorization = require('../auth/token_validatiion')
+
 const {
-    getAllUsers,
-    createNewUser,
-    updateUserById,
-    deleteUserById } = require('../controller/controller')
+  getAllUsers,
+  createNewUser,
+  updateUserById,
+  deleteUserById,
+  login,
+} = require("../controller/controller");
 
+router.get("/users",authorization, getAllUsers);
 
+router.post("/user",authorization,  createNewUser);
 
-router.get('/users',getAllUsers);
+router.patch("/user/:id",authorization,  updateUserById);
 
-router.post('/user',createNewUser);
+router.delete("/user/:id",authorization,  deleteUserById);
 
-router.patch('/user/:id',updateUserById);
-
-router.delete('/user/:id',deleteUserById);
+router.post("/user/login", login);
 
 module.exports = router;
